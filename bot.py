@@ -1,4 +1,4 @@
- from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -47,3 +47,4 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message))
 
 print("Bot running...")
 app.run_polling()
+
