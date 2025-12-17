@@ -33,11 +33,11 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except:
             await update.message.reply_text("❌ Failed. Try another link.")
 
-app = ApplicationBuilder().token(TOKEN).build()
+ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(button))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message))
 
 print("Bot running...")
-
 app.run_polling()
+
