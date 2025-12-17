@@ -1,5 +1,12 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    CallbackQueryHandler,
+    MessageHandler,
+    ContextTypes,
+    filters
+)
 import yt_dlp
 import os
 
@@ -8,7 +15,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 os.makedirs("downloads", exist_ok=True)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [[InlineKeyboardButton("📥 Downloader", callback_data="dl")]]
+    keyboard = [[InlineKeyboardButton("⬇️ Downloader", callback_data="dl")]]
     await update.message.reply_text(
         "Welcome! Click below 👇",
         reply_markup=InlineKeyboardMarkup(keyboard)
@@ -30,15 +37,17 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 file = ydl.prepare_filename(info)
             await update.message.reply_video(video=open(file, "rb"))
             os.remove(file)
-        except:
+        except Exception:
             await update.message.reply_text("❌ Failed. Try another link.")
 
- app = ApplicationBuilder().token(TOKEN).build()
+app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(button))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message))
 
 print("Bot running...")
 app.run_polling()
+                
+    
 
 
