@@ -3,7 +3,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 import yt_dlp
 import os
 
-TOKEN =  "8215748948:AAGW9yFQJb3V-oOhcI_ILITH6YybbtPi0dY"
+TOKEN = os.getenv("BOT_TOKEN")
 
 os.makedirs("downloads", exist_ok=True)
 
@@ -39,4 +39,5 @@ app.add_handler(CallbackQueryHandler(button))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message))
 
 print("Bot running...")
+
 app.run_polling()
